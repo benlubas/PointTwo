@@ -1,0 +1,70 @@
+<html>
+
+<head>
+  <title>
+    A Single Perceptron
+  </title>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="../library/b5.js"></script>
+  <script src="../library/SimpleNeuralNet.js"></script>
+
+</head>
+
+<body>
+  <script>
+    //this is the thing you draw on. 
+    createCanvas(400, 400);
+    let con = getCon();
+
+    //f(x) = x + 0; it's just like in math class.
+    const f = function (x) {
+      let m = 1;
+      let b = 0;
+      return m * x + b;
+    }
+    //this is used to train the thing. 
+    const answer = function (x, y) {
+      let yLine = f(x);
+      if (y < yLine) return -1;
+      return 1;
+    }
+    //give it a background. 
+    background("#DDDDDD");
+    //draw the line. 
+    let p1 = new Point(0, f(0))
+    let p2 = new Point(400, f(400));
+    p1.lineTo(p2);
+
+    //create the "Neural Net"
+    let perceptron = new Neuron(3);
+    let bias = .5;
+
+    const loop = setInterval(() => {
+      p1.lineTo(p2);
+      let p = new Point(ran(400), ran(400));
+      let result = perceptron.train([p.x, p.y, bias], answer(p.x, p.y));
+      // let result = perceptron.feedForward([p.x, p.y, bias]);
+
+      console.log("Point: " + p.x + "," + p.y)
+      console.log("Result: " + result);
+
+      let y = f(p.x);
+      if (result == answer(p.x, p.y)) {
+        circle(false, p.x, p.y, 3, 'green', 1);
+      } else {
+        circle(true, p.x, p.y, 10, 'red', 1);
+      }
+
+    }, 1000 / 120);
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>

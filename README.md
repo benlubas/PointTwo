@@ -3,4 +3,4 @@
 
 Want to see the things? 
 
-Copy paste: https://benlubas.github.io/PointTwo/
+Click: https://benlubas.github.io/PointTwo/

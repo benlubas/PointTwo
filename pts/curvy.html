@@ -1,5 +1,4 @@
 <html>
-
 <head>
   <title>Curved Lines</title>
 </head>
@@ -9,24 +8,28 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script src="../lib/b5.js"></script>
-<script src="../lib/SimpleNeuralNet.js"></script>
+<script src="../lib/simpleNeuralNet.js"></script>
 <script>
   const f = function (x) {
     let a = 1;
     let b = 2;
     let c = 3;
-    return a * math.pow(x - b, 2) + c
+    return a * Math.pow(x - b, 2) + c
   }
-  createCanvas(400, 400);
+  createCanvas(700, 500);
   let con = getCon();
-  background("#CCCCCC");
+  background("#CCCCCC", 700, 400);
+  background("#EEEEEE", 400, 400);
 
-  let net = new DeepNetwork(8, 10, 4);
-  net.draw(new Point(100, 40));
-
+  let net = new DeepNetwork(2, 2, 1);
+  net.draw(new Point(450, 40));
+  
+  
 
   let loop = setInterval(() => {
-
+    for(let i = 0; i < 400; i += .5){
+      let pt = new Point(i, f(i)); 
+    }
   }, 1000 / 30)
 
 </script>

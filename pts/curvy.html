@@ -4,15 +4,12 @@
   <title>Curved Lines</title>
 </head>
 
-<body>
-  lets make this change.
+<body></body>
 
-
-</body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-<script src="../library/b5.js"></script>
-<script src="../library/SimpleNeuralNet.js"></script>
+<script src="../lib/b5.js"></script>
+<script src="../lib/SimpleNeuralNet.js"></script>
 <script>
   const f = function (x) {
     let a = 1;
@@ -22,9 +19,9 @@
   }
   createCanvas(400, 400);
   let con = getCon();
+  background("#CCCCCC");
 
-
-  let net = new DeepNetwork(2, 3, 1);
+  let net = new DeepNetwork(8, 10, 4);
   net.draw(new Point(100, 40));
 
 

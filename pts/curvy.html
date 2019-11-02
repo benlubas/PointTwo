@@ -27,9 +27,11 @@
   
 
   let loop = setInterval(() => {
-    
+    let prev = new Point(0, f(0)); 
     for(let i = 0; i < 400; i += .5){
       let pt = new Point(i, f(i)); 
+      prev.lineTo(pt); 
+      prev = pt; 
     }
   }, 1000 / 30)
 

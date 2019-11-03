@@ -1,0 +1,27 @@
+body{
+  padding: 20px; 
+  background-color: #202020;
+}
+
+li{
+  display: inline-block; 
+  border: 2px solid #00000033; 
+  padding:10px 0px; 
+  margin: 5px; 
+}
+
+a{
+  text-decoration: none; 
+  color: rgb(133, 26, 221); 
+  padding:10px 20px; 
+}
+a:active{
+  color: rgb(103, 0, 187); 
+}
+a:hover{
+  text-decoration: underline;
+}
+
+.nav:hover{
+  background-color: #8124c052
+}

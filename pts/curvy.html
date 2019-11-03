@@ -1,6 +1,7 @@
 <html>
 <head>
   <title>Curved Lines</title>
+  <link rel="stylesheet" href="../styles/main.css">
 </head>
 
 <body></body>
@@ -10,35 +11,37 @@
 <script src="../lib/b5.js"></script>
 <script src="../lib/deepNetwork.js"></script>
 <script>
-  const f = function (x) {
-    let a = .005;
-    let b = 200;
-    let c = 150;
-    return a * Math.pow(x - b, 2) + c
-  }
+  
+  //Draw Everything. 
   createCanvas(700, 500);
   let con = getCon();
   background("#CCCCCC", 700, 400);
   background("#515151", 400, 400);
 
-  let net = new DeepNetwork(2, 2, 1);
+  //some preliminary functions:
+  const interperate = function (result) {
+    return (result[0] > 0 ? 1 : -1); 
+  }
+  const f = function (x) {
+      let a = .005;
+      let b = 200;
+      let c = 150;
+      return a * Math.pow(x - b, 2) + c
+    }
+  let net = new DeepNetwork(2, 2, 1, interperate);
   net.draw(new Point(450, 40));
 
-  const interperate = function(result){
-    if(result[0] > 0){
-      return 1; 
-    } return -1; 
-  }
+  
 
-  graph(Neuron.activate, -8, 8); 
+  // graph(Neuron.activate, -8, 8); 
 
-  let loop = setInterval(() => {
+  const loop = setInterval(() => {
     //get the neural net output: 
     x = ran(0, 400); 
     y = ran(0, 400); 
     answer = y > f(x) ? 1 : -1; 
     let result = net.go([x, y]); 
-    console.log(answer, result, interperate(result)); 
+
     if(interperate(result) == answer){
       circle(true, x, y, 5, 'green', 1); 
     }else{

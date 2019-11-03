@@ -11,29 +11,48 @@
 <script src="../lib/simpleNeuralNet.js"></script>
 <script>
   const f = function (x) {
-    let a = 1;
-    let b = 2;
-    let c = 3;
+    let a = .005;
+    let b = 200;
+    let c = 150;
     return a * Math.pow(x - b, 2) + c
   }
   createCanvas(700, 500);
   let con = getCon();
   background("#CCCCCC", 700, 400);
-  background("#EEEEEE", 400, 400);
+  background("#515151", 400, 400);
 
   let net = new DeepNetwork(2, 2, 1);
   net.draw(new Point(450, 40));
-  
-  
+
+  const interperate = function(result){
+    if(result[0] > 0){
+      return 1; 
+    } return -1; 
+  }
+
+  graph((x) => { return sin(x) }, 0, 360); 
 
   let loop = setInterval(() => {
+    //get the neural net output: 
+    x = ran(0, 400); 
+    y = ran(0, 400); 
+    answer = y > f(x) ? 1 : -1; 
+    let result = net.go([x, y]); 
+    console.log(answer, result, interperate(result)); 
+    if(interperate(result) == answer){
+      circle(true, x, y, 5, 'green', 1); 
+    }else{
+      circle(true, x, y, 5, 'red', 1); 
+    }
+
+    //draw the line. 
     let prev = new Point(0, f(0)); 
     for(let i = 0; i < 400; i += .5){
       let pt = new Point(i, f(i)); 
       prev.lineTo(pt); 
       prev = pt; 
     }
-  }, 1000 / 30)
+  }, 1000)
 
 </script>
 

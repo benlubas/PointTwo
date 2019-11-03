@@ -8,7 +8,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="../lib/b5.js"></script>
-  <script src="../lib/simpleNeuralNet.js"></script>
+  <script src="../lib/perceptron.js"></script>
 
 </head>
 
@@ -29,6 +29,10 @@
       let yLine = f(x);
       if (y < yLine) return -1;
       return 1;
+    }
+
+    const interpret = function(n){
+      return n > 0 ? 1 : -1; 
     }
     //give it a background. 
     background("#DDDDDD");
@@ -51,13 +55,13 @@
       console.log("Result: " + result);
 
       let y = f(p.x);
-      if (result == answer(p.x, p.y)) {
+      if (interpret(result) == answer(p.x, p.y)) {
         circle(false, p.x, p.y, 3, 'green', 1);
       } else {
         circle(true, p.x, p.y, 10, 'red', 1);
       }
 
-    }, 1000 / 120);
+    }, 1);
 
 
 

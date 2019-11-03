@@ -8,7 +8,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <script src="../lib/b5.js"></script>
-<script src="../lib/simpleNeuralNet.js"></script>
+<script src="../lib/deepNetwork.js"></script>
 <script>
   const f = function (x) {
     let a = .005;
@@ -30,7 +30,7 @@
     } return -1; 
   }
 
-  graph((x) => { return sin(x) }, 0, 360); 
+  graph(Neuron.activate, -8, 8); 
 
   let loop = setInterval(() => {
     //get the neural net output: 

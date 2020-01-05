@@ -1,0 +1,110 @@
+<html>
+  <head>
+    <title>Snake</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="./b5.js"></script>
+    <script src="./snake.js"></script>
+    <script src="./bot.js"></script>
+  </head>
+  <body class="game-body">
+    <script>
+      const gamerule = {
+        speed: 20,
+        lengthGain: [1, 2]
+      };
+
+      let cWidth = 400;
+      let cHeight = 400;
+      let cellH = 25;
+      let cellW = 25;
+      createCanvas(cWidth, cHeight);
+      con = getCon();
+      let gridW = cWidth / cellW;
+      let gridH = cHeight / cellH;
+      var foodExists = true;
+      let foodPos = new Point(1, 4);
+      let gameover = false;
+
+      let main = new Snake(Math.floor(gridH / 2), Math.floor(gridW / 2), 1);
+      main.positions.push(new Point(5, 5));
+
+      const findFoodPoint = (min, max, exclusions) => {
+        let possible = [];
+        for (let i = min; i <= max; i++) {
+          for (let j = min; j <= max; j++) {
+            if (!exclusions.includesPoint(new Point(i, j))) {
+              possible.push(new Point(i, j));
+            }
+          }
+        }
+        return possible[ran(0, possible.length - 1)];
+      };
+      const path = genPath(gridW, gridH);
+
+      const update = function() {
+        if (!foodExists) {
+          foodPos = findFoodPoint(0, gridW - 1, main.positions);
+          foodExists = true;
+        }
+        main.synth(makeAMove(main.positions[main.positions.length - 1], path));
+        main.update(foodPos);
+
+        // collision detection.
+        if (arrPointDupCheck(main.positions)) {
+          gameover = true;
+        }
+        for (let i = 0; i < main.positions.length; i++) {
+          if (
+            main.positions[i].x < 0 ||
+            main.positions[i].x >= gridW ||
+            main.positions[i].y < 0 ||
+            main.positions[i].y >= gridH
+          ) {
+            gameover = true;
+          }
+        }
+      };
+
+      const draw = function() {
+        background("#515151", cWidth, cHeight);
+
+        rect(foodPos.x * cellW, foodPos.y * cellH, cellW, cellH, "red");
+
+        let n = main.len;
+        for (let i = 0; i < main.positions.length; i++) {
+          let r = main.positions[i].x;
+          let c = main.positions[i].y;
+          rect(
+            r * cellW + 1,
+            c * cellH + 1,
+            cellW - 2,
+            cellH - 2,
+            `hsla(${180 - 2 * n}, 100%, 50%, 1)`
+          );
+          n--;
+        }
+        canvasText(
+          "Score: " + main.positions.length,
+          new Point(5, 20),
+          "Times New Roman",
+          14,
+          "white",
+          { center: false }
+        );
+      };
+
+      main.positions = [new Point(8, 8)];
+
+      let animLoop;
+      let inputLoop;
+      animLoop = setInterval(() => {
+        update();
+        main.lock = false;
+        draw();
+      }, 1000 / parseInt(gamerule.speed));
+      inputLoop = setInterval(() => {
+        main.move();
+      }, 1000 / 120);
+    </script>
+  </body>
+</html>

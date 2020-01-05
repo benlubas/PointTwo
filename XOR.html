@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <title>XOR</title>
+  </head>
+
+  <script>
+    const sigmoid = (arr, deriv) => {
+      let n = [...arr];
+
+      for (let r = 0; r < n.length; r++) {
+        for (let c = 0; c < n[0].length; c++) {
+          let x = n[r][c];
+          n[r][c] = deriv === true ? x * (1 - x) : 1 / (1 + Math.E ** -x);
+        }
+      }
+      return n;
+    };
+    //Assumes two two d arrays cols of a = rows of b
+    // this works now!
+    const dot = (aarr, barr) => {
+      let a = [...aarr];
+      let b = [...barr];
+      let result = [];
+      for (let i = 0; i < a.length; i++) {
+        result[i] = new Array(a.length).fill(0);
+      }
+      for (let r = 0; r < result.length; r++) {
+        for (let c = 0; c < result[0].length; c++) {
+          for (let mat = 0; mat < b.length; mat++) {
+            result[c][r] += a[c][mat] * b[mat][r];
+          }
+        }
+      }
+
+      return result;
+    };
+
+    const inputs = [
+      // array of sample inputs
+      [0, 0],
+      [0, 1],
+      [1, 1],
+      [1, 0]
+    ];
+    const numHidden = 3;
+    const targets = [[0], [1], [0], [1]]; // coresponding array of outputs
+
+    let syn0 = Array(inputs[0].length)
+      .fill(0)
+      .map(i => Array(inputs.length).fill(0))
+      .map(arr =>
+        arr.map(() => Math.random() * (Math.random() >= 0.5 ? 1 : -1))
+      );
+    let syn1 = Array(targets[0].legnth)
+      .fill(0)
+      .map(i => Array(targets.length).fill(0))
+      .map(arr =>
+        arr.map(() => Math.random() * (Math.random() >= 0.5 ? 1 : -1))
+      );
+
+    const train = () => {
+      let l0 = inputs;
+      let l1 = sigmoid(dot(l0, syn0));
+      console.log(l1);
+      console.log(syn1);
+      console.log(dot(l1, syn1));
+      let l2 = sigmoid(dot(l1, syn1));
+      console.log(l2);
+    };
+    train();
+  </script>
+</html>

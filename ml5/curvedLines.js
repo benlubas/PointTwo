@@ -5,15 +5,17 @@ let con = getCon();
 const options = {
   inputs: ["x", "y"],
   outputs: 1,
-  type: "regression"
+  type: "regression",
+  epochs: 125,
+  debug: "on"
 };
-const net = ml5.neuralNetwork(options);
+let net = ml5.neuralNetwork(options);
 
 const solution = function(x, y) {
   return 1 * (y > f(x));
 };
-const check = (net, actual) => {
-  if ((net > 0.5 && actual > 0.5) || (net < 0.5 && actual < 0.5)) {
+const check = (res, actual) => {
+  if ((res > 0.5 && actual > 0.5) || (res < 0.5 && actual < 0.5)) {
     return true;
   }
   return false;
@@ -32,23 +34,28 @@ const drawGraph = () => {
     previous = new Point(x, f(x));
   }
 };
-for (let i = 0; i < 500000; i++) {
+for (let i = 0; i < 350; i++) {
   let d = [ran(0, canvasWidth), ran(0, canvasHeight)];
   net.data.addData(d, [solution(...d)]);
 }
 background("black");
 drawGraph(0);
-net.data.normalize();
+net.normalizeData();
 console.log("Training");
-net.train(() => {
+const doneTraining = () => {
   console.log("Done Training");
   const trainedLoop = setInterval(() => {
     let pt = new Point(ran(0, canvasWidth), ran(0, canvasHeight));
+    console.log("net:", net);
     net.predict([pt.x, pt.y], (err, res) => {
+      if (err !== undefined) {
+        console.log(err);
+      }
       begin();
       con.arc(pt.x, pt.y, 2, 0, Math.PI * 2, true);
       fill(check(res[0].value, solution(pt.x, pt.y)) ? "green" : "red");
       end();
     });
   }, 1000 / 60);
-});
+};
+net.train(doneTraining());

@@ -6,7 +6,7 @@ const options = {
   inputs: ["x", "y"],
   outputs: 1,
   type: "regression",
-  epochs: 125,
+  epochs: 25,
   debug: "on"
 };
 let net = ml5.neuralNetwork(options);
@@ -34,7 +34,7 @@ const drawGraph = () => {
     previous = new Point(x, f(x));
   }
 };
-for (let i = 0; i < 350; i++) {
+for (let i = 0; i < 1000; i++) {
   let d = [ran(0, canvasWidth), ran(0, canvasHeight)];
   net.data.addData(d, [solution(...d)]);
 }
@@ -46,10 +46,10 @@ const doneTraining = () => {
   console.log("Done Training");
   const trainedLoop = setInterval(() => {
     let pt = new Point(ran(0, canvasWidth), ran(0, canvasHeight));
-    console.log("net:", net);
+
     net.predict([pt.x, pt.y], (err, res) => {
       if (err !== undefined) {
-        console.log(err);
+        console.error(err);
       }
       begin();
       con.arc(pt.x, pt.y, 2, 0, Math.PI * 2, true);

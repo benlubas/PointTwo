@@ -1,87 +1,41 @@
 //! NEED TO RUN ON LIVE SERVER
 
+// // TODO: Load the model so we don't have to wait
+// // TODO: Take User input and feed it into the network
+//TODO: get a shit ton of data from the quickdraw site (processing in processing).
+//TODO: Train it with that shit ton of data
+//TODO: Make the website look nicer so I can present with it.
+
 const size = 28;
 const TOTAL_PX = size ** 2;
 const loadedImages = 1000;
 const trainingSampleSize = 800;
 const testingSampleSize = 200;
 
-let myData = {
-  pucks: {
-    label: "Hockey Puck",
-    all: [],
-    training: [],
-    testing: []
-  },
-  hexagons: {
-    label: "Hexagon",
-    all: [],
-    training: [],
-    testing: []
-  },
-  triangles: {
-    label: "Triangle",
-    all: [],
-    training: [],
-    testing: []
-  },
-  rackets: {
-    label: "Tennis Racket",
-    all: [],
-    training: [],
-    testing: []
-  }
-};
-const NUM_LABELS = countObjAttrs(myData);
-
 const options = {
-  input: TOTAL_PX,
-  output: ["Label"],
-  type: "classification",
+  inputs: TOTAL_PX,
+  outputs: ["Label"],
+  task: "classification",
   debug: "on",
-  epochs: 30
+  epochs: 10
 };
 let net = ml5.neuralNetwork(options);
+function load_the_model(name) {
+  const files = {
+    model: `./models/${name}/model.json`,
+    metadata: `./models/${name}/model_meta.json`,
+    weights: `./models/${name}/model.weights.bin`
+  };
+  net.load(files, loaded);
+}
+function loadData() {}
 
-function preload() {
-  for (let key in myData) {
-    const byteData = loadBytes(`./data/${key}${loadedImages}.bin`);
-    setTimeout(() => {
-      //Okay, so because of this line below not loading on time,
-      //I needed to put this on a set timeout. 1500ms seems to work consistantly.
-      myData[key].all = byteData.bytes;
-      for (let i = 0; i < loadedImages; i++) {
-        if (i < trainingSampleSize) {
-          myData[key].training.push(
-            myData[key].all.subarray(i * TOTAL_PX, i * TOTAL_PX + TOTAL_PX)
-          );
-        } else {
-          myData[key].testing.push(
-            myData[key].all.subarray(i * TOTAL_PX, i * TOTAL_PX + TOTAL_PX)
-          );
-        }
-      }
-    }, 1500);
-  }
-  //hate that I have to do it like this. But... oh well.
-  setTimeout(feedData(), 1500 * NUM_LABELS);
+function dataLoaded() {
+  console.log("Data Loaded");
+  prepData(10);
 }
-function setup() {}
-
-function feedData() {
-  setTimeout(() => {
-    for (let key in myData) {
-      let a = myData[key].training;
-      for (let i = 0; i < myData[key].training.length; i++) {
-        net.data.addData(a[i], [myData[key].label]);
-      }
-    }
-    train();
-  }, 1500);
+function loaded() {
+  console.log("Model Loaded");
+  takeInput();
 }
-function train() {
-  net.normalizeData();
-  net.train(() => {
-    console.log("done");
-  });
-}
+// beginTraining();

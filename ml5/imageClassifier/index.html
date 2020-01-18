@@ -1,0 +1,63 @@
+<!-- !RUN ON LIVE SERVER -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Image Classification</title>
+
+    <link rel="stylesheet" href="./../../styles/main.css" />
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div class="networks">
+      <div class="card">
+        <div class="title">Testing Network</div>
+        <div class="desc">
+          Trained on 800 images of each type. This network is not really the
+          greatest in terms of accuracy, but it was so awseome to see it
+          working. <br />
+          <br />
+          It is capable of very unconfidently telling you if your image is a
+          triangle, a hexagon or a tennis racket.
+        </div>
+        <div id="testing01" class="btn">View</div>
+      </div>
+      <div class="card">
+        <div class="title">First Showcase Network</div>
+        <div class="desc">
+          Training this one right now.
+        </div>
+        <div id="showcase01" class="btn">View</div>
+      </div>
+    </div>
+    <div class="instructions">
+      <p>c = clear</p>
+      <p>p = prediction</p>
+    </div>
+    <div class="results"></div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/p5@0.10.2/lib/p5.js"></script>
+  <!-- <script src="./../../lib/b5.js"></script> -->
+  <script src="./../../lib/loadBytes.js"></script>
+  <script src="./index.js"></script>
+  <script src="./train.js"></script>
+  <script src="./userInterface.js"></script>
+  <script>
+    $(document).ready(function() {
+      $("#testing01").click(function() {
+        load_the_model("testing01");
+        $(".networks").hide();
+        $(".instructions").show();
+      });
+      $("#showcase01").click(function() {
+        load_the_model("showcase01");
+        $(".networks").hide();
+        $(".instructions").show();
+      });
+    });
+  </script>
+</html>

@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Open+Sans&display=swap");
+body {
+  color: white;
+}
+
+.instructions {
+  display: none;
+}
+
+.instructions p {
+  display: inline-block;
+  padding: 10px;
+  border-bottom: 1px solid #8702af;
+  margin: 0px 20px;
+  margin-bottom: 30px;
+}
+
+.networks {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card {
+  border: 1px solid #8702af;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 40px;
+  margin-bottom: 20px;
+  width: 65%;
+}
+
+.card .title {
+  font-size: 1.2rem;
+  padding: 5px;
+  border-bottom: 1px solid #800080a2;
+  margin-bottom: 5px;
+  padding-left: 15px;
+  font-family: "Montserrat";
+}
+
+.card .desc {
+  font-family: "Open Sans";
+  padding: 0px 5px;
+}
+
+.card .btn {
+  margin: 10px;
+  padding: 7px 19px;
+  display: inline-block;
+  font-size: 1.1rem;
+  font-family: "Open Sans";
+  background: linear-gradient(145deg, #8702af, #4d0163);
+  border-radius: 5px;
+  cursor: pointer;
+}
+/*# sourceMappingURL=main.css.map */

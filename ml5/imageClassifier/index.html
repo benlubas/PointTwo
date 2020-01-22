@@ -15,7 +15,6 @@
         padding: 10px; 
         margin: 10px; 
         display: inline-block; 
-        display: none; 
         cursor: pointer; 
       }
       
@@ -85,6 +84,7 @@
   <script src="./userInterface.js"></script>
   <script>
     $(document).ready(function() {
+      $(".goBack").hide();
       $("#testing01").click(function() {
         load_the_model("testing01");
         $(".networks").hide();

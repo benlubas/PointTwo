@@ -2,14 +2,15 @@
 
 // // TODO: Load the model so we don't have to wait
 // // TODO: Take User input and feed it into the network
-//TODO: get a shit ton of data from the quickdraw site (processing in processing).
+// //  TODO: get a shit ton of data from the quickdraw site (processing in processing).
 //TODO: Train it with that shit ton of data
 //TODO: Make the website look nicer so I can present with it.
 
 const size = 28;
 const TOTAL_PX = size ** 2;
-const loadedImages = 1000;
-const trainingSampleSize = 800;
+let fileNum = 5000; 
+const loadedImages = 2000;
+const trainingSampleSize = 1800;
 const testingSampleSize = 200;
 
 const options = {
@@ -28,8 +29,9 @@ function load_the_model(name) {
   };
   net.load(files, loaded);
 }
-function loadData() {}
-
+function loadData() {
+  net.loadData("./data/showcaseData.json", dataLoaded())
+}
 function dataLoaded() {
   console.log("Data Loaded");
   prepData(10);

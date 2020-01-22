@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./main.css" />
   </head>
   <body>
+
     <div class="networks">
       <div class="card">
         <div class="title">Testing Network</div>
@@ -25,11 +26,35 @@
         <div id="testing01" class="btn">View</div>
       </div>
       <div class="card">
-        <div class="title">First Showcase Network</div>
+        <div class="title">Failure Number One</div>
         <div class="desc">
-          Training this one right now.
+          This one was a little ambitious, I tried to train it with about 10 different 
+          images and 5000 training images in each sample. Chrome can't keep that many images in memory at once without crashing.
+          So I knocked it down to 2000 training images each, this resulted in a network that didn't really work, but here it is anyway.
         </div>
-        <div id="showcase01" class="btn">View</div>
+        <div id="tooAmbitious" class="btn">View</div>
+      </div>
+      <div class="card">
+        <div class="title">Showcase 1 (eh)</div>
+        <div class="desc">
+          To call it a showcase is almost overstating this network's ability. 
+          It can recognize snowflakes, squares, hexagons, and octagons. Nothing too crazy. 
+          It was trained on 5000 of each test images. 
+          it doesn't do too well. The loss was minimized,
+          but when some other images were tested, the network had an average corrrectness of 29%. 
+          Now that's really really bad. 
+        </div>
+        <div id="showcase" class="btn">View</div>
+      </div>
+      <div class="card">
+        <div class="title">Showcase 2</div>
+        <div class="desc">
+          We're trying this one with a bunch of completely different things. 
+          5000 of each image again. Accuracy in the 30% range this time. 
+          It helps if you draw things large, and take up the whole screen. 
+          If you can get it to acuurately recognize a traffic light, good job. 
+        </div>
+        <div id="showcase2" class="btn">View</div>
       </div>
     </div>
     <div class="instructions">
@@ -53,11 +78,22 @@
         $(".networks").hide();
         $(".instructions").show();
       });
-      $("#showcase01").click(function() {
+      $("#tooAmbitious").click(function() {
+        load_the_model("fail01");
+        $(".networks").hide();
+        $(".instructions").show();
+      });
+      $("#showcase").click(function() {
         load_the_model("showcase01");
         $(".networks").hide();
         $(".instructions").show();
       });
+      $("#showcase2").click(function() {
+        load_the_model("showcase02");
+        $(".networks").hide();
+        $(".instructions").show();
+      });
+      
     });
   </script>
 </html>

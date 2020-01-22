@@ -43,7 +43,7 @@
           but when some other images were tested, the network had an average corrrectness of 29%. 
           Now that's really really bad. 
         </div>
-        <div id="showcase" class="btn">View</div>
+        <div id="showcase01" class="btn">View</div>
       </div>
       <div class="card">
         <div class="title">Showcase 2</div>
@@ -53,7 +53,7 @@
           It helps if you draw things large, and take up the whole screen. 
           If you can get it to acuurately recognize a traffic light, good job. 
         </div>
-        <div id="showcase2" class="btn">View</div>
+        <div id="showcase02" class="btn">View</div>
       </div>
     </div>
     <div class="instructions">
@@ -82,12 +82,12 @@
         $(".networks").hide();
         $(".instructions").show();
       });
-      $("#showcase").click(function() {
+      $("#showcase01").click(function() {
         load_the_model("showcase01");
         $(".networks").hide();
         $(".instructions").show();
       });
-      $("#showcase2").click(function() {
+      $("#showcase02").click(function() {
         load_the_model("showcase02");
         $(".networks").hide();
         $(".instructions").show();

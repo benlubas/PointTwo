@@ -1,23 +1,39 @@
 // laptops and sharks
+//! Normalize the Data!!!!!
 let myData = {
-  hexagons: {
-    label: "Hexagon",
-    all: [],
-    training: [],
-    testing: []
+  // triangles: {
+  //   label: "Triangle"
+  // },
+  // sharks: {
+  //   label: "Shark"
+  // },
+  // bananas: {
+  //   label: "Banana"
+  // },
+  // icecream: {
+  //   label: "Ice Cream"
+  // },
+  // laptops: { 
+  //   label: "Laptop"
+  // },
+  lightbulbs: {
+    label: "Lightbulb"
   },
-  triangles: {
-    label: "Triangle",
-    all: [],
-    training: [],
-    testing: []
+  // octagons: { 
+  //   label: "Octagon"
+  // },
+  snowflakes: { 
+    label: "Snowflake"
   },
-  rackets: {
-    label: "Tennis Racket",
-    all: [],
-    training: [],
-    testing: []
-  }
+  // squares: { 
+  //   label: "Square"
+  // },
+  trafficLights: { 
+    label: "Traffic Light"
+  },
+  // cactus: {
+  //   label: "Cactus"
+  // }
 };
 
 const countObjAttrs = obj => {
@@ -33,7 +49,10 @@ const NUM_LABELS = countObjAttrs(myData);
 
 function prepData(epochs) {
   for (let key in myData) {
-    const byteData = loadBytes(`./data/${key}${loadedImages}.bin`);
+    myData[key].all = []; 
+    myData[key].testing = []; 
+    myData[key].training = [];
+    const byteData = loadBytes(`./data/${key}${fileNum}.bin`);
     setTimeout(() => {
       //Okay, so because of this line below not loading on time,
       //I needed to put this on a set timeout. 1500ms seems to work consistantly.
@@ -57,15 +76,17 @@ function prepData(epochs) {
   // console.log(myData);
   //hate that I have to do it like this. But... oh well.
   // setTimeout(feedData(epochs), 1500 * NUM_LABELS);
-  setTimeout(testData(), 1500 * NUM_LABELS);
+  // setTimeout(testData(), 1500 * NUM_LABELS);
 }
-
+function saveData() {
+  net.saveData(); 
+}
 function feedData(epochs) {
   //these two should make all of the possible mins and maxs 0 and 255;
   //without this, the normalized values for some pixles are from 0 to 0, and
   //that results in NaN. Unfortunately, ml5 does not handle this for you.
-  myData.triangles.training.push(new Array(TOTAL_PX).fill(0));
-  myData.triangles.training.push(new Array(TOTAL_PX).fill(255));
+  myData.snowflakes.training.push(new Array(TOTAL_PX).fill(0));
+  myData.snowflakes.training.push(new Array(TOTAL_PX).fill(255));
   setTimeout(() => {
     for (let key in myData) {
       let trainingData = myData[key].training;
@@ -73,13 +94,13 @@ function feedData(epochs) {
         net.data.addData([...trainingData[i]], [myData[key].label]);
       }
     }
-    train(epochs);
+    // train(epochs);
   }, 1500);
 }
+
 function train(epochs) {
-  net.normalizeData();
-  net.train({ epochs: epochs }, null, () => {
-    // testSomeShit();
+  epochs = epochs === undefined ? 30 : epochs; 
+  net.train({ epochs: epochs }, ()=>{}, () => {
     console.log("Model Trained");
   });
 }
@@ -93,14 +114,14 @@ function testData() {
   setTimeout(() => {
     for (key in myData) {
       let testData = myData[key].testing;
-      console.log(testData);
+      // console.log(testData);
       for (let i = 0; i < testData.length; i++) {
         net.classify(testData[i], (err, res) => {
           if (err !== undefined) {
             throw err;
           } else {
-            if (res[0].label === myData[key].label) {
-              correct += 1;
+            if (res[0].label == myData[key].label) {
+              correct ++;
             }
             confidence += res[0].confidence;
             total++;

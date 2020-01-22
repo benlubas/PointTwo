@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="./main.css" />
     <style>
       .goBack {
-        background: var(--purple, purple);
+        background: #8702af;
         color: white; 
         padding: 10px; 
         margin: 10px; 
+        display: none; 
       }
       
     </style>
@@ -86,21 +87,28 @@
         load_the_model("testing01");
         $(".networks").hide();
         $(".instructions").show();
+        $(".goBack").show(); 
       });
       $("#tooAmbitious").click(function() {
         load_the_model("fail01");
         $(".networks").hide();
         $(".instructions").show();
+        $(".goBack").show(); 
       });
       $("#showcase01").click(function() {
         load_the_model("showcase01");
         $(".networks").hide();
         $(".instructions").show();
+        $(".goBack").show(); 
       });
       $("#showcase02").click(function() {
         load_the_model("showcase02");
         $(".networks").hide();
         $(".instructions").show();
+        $(".goBack").show(); 
+      });
+      $(".goBack").click(function() {
+        location.reload(); 
       });
       
     });
